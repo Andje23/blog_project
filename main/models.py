@@ -9,6 +9,9 @@ class Blog(models.Model):
     description = models.TextField(help_text="Write your blog")
     past_date = models.DateField(default=date.today)
 
+    def __str__(self):
+        return self.name + "====>" + str(self.author)
+
 
 class BlogComment(models.Model):
     description = models.TextField(help_text="Write your comment")
