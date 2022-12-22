@@ -10,7 +10,7 @@ class Blog(models.Model):
     past_date = models.DateField(default=date.today)
 
     def __str__(self):
-        return self.name + "====>" + str(self.author)
+        return self.name + " ====> " + str(self.author)
 
 
 class BlogComment(models.Model):
