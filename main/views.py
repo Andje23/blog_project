@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Blog, BlogComment
 
 
 def blog_home(request):
-    return render(request, "main/blog_home.html")
+    all_blogs = Blog.objects.all()
+    context = {
+        {'all_blogs': all_blogs}
+    }
+    return render(request, "main/blog_home.html", context)
 
 
 def blog_detail(request):
