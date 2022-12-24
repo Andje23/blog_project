@@ -4,9 +4,8 @@ from .models import Blog, BlogComment
 
 def blog_home(request):
     all_blogs = Blog.objects.all()
-    context = {
-        {'all_blogs': all_blogs}
-    }
+    context = {'blogs': all_blogs}
+
     return render(request, "main/blog_home.html", context)
 
 
