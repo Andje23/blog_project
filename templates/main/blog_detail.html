@@ -4,17 +4,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>ТЕКСТ</h2>
-                <span>Author</span>
+                <h2>{{ blog.name }}</h2>
+                <span>Author: {{ blog.author }}</span>
                 <div>
-                    <small>12 min ago</small>
+                    <small>{{ blog.post_date }}</small>
                 </div>
 
                 <img src="" alt="" width="40%">
             </div>
 
             <div>
-                <p>The text of the article.</p>
+                <p>{{ blog.description }}</p>
             </div>
 
             <div class="col-md-4">
