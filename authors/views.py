@@ -5,5 +5,5 @@ def singUp(request):
     return render(request, "authors/register.html")
 
 
-def loginUp(request):
+def logIn(request):
     return render(request, "authors/login.html")
