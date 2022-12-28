@@ -24,4 +24,10 @@ def profile(request):
 
 
 def contactUs(request):
+    if request.method == "POST":
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        e_mail = request.POST['e_mail']
+        phone_number = request.POST['phone_number']
+        contact_message = request.POST["contact_message"]
     return render(request, "main/contact_us.html")
