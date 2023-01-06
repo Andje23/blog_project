@@ -3,6 +3,7 @@
 {% block content %}
     <h2>Contact to Blog</h2>
     <form class="row g-3" method="post">
+        {% csrf_token %}
         <div class="col-md-6">
             <label for="frame" class="form-label">First name</label>
             <input type="text" class="form-control" id="frame" placeholder="First name" name="first_name">
