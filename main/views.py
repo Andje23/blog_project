@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Blog, BlogComment
+from .models import Blog, BlogComment, Contact
 
 
 def blog_home(request):
@@ -33,6 +33,14 @@ def contactUs(request):
 
         if len(first_name) < 2 or len(last_name) < 2 or len(e_mail) < 5 or len(phone_number) < 9 or len(contact_message) < 5:
             return redirect('home')
+        else:
+            save_data = Contact(first_name=first_name,
+                                last_name=last_name,
+                                e_mail=e_mail,
+                                phone_number=phone_number,
+                                contact_message=contact_message)
+            save_data.save()
+            return redirect('contact_us')
     return render(request, "main/contact_us.html")
 
 
