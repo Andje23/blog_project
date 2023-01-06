@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Blog, BlogComment
 
 
@@ -30,4 +30,10 @@ def contactUs(request):
         e_mail = request.POST['e_mail']
         phone_number = request.POST['phone_number']
         contact_message = request.POST["contact_message"]
+
+        if len(first_name) < 2 or len(last_name) < 2 or len(e_mail) < 5 or len(phone_number) < 9 or len(contact_message) < 5:
+            return redirect('home')
     return render(request, "main/contact_us.html")
+
+
+
