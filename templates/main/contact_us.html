@@ -6,26 +6,34 @@
         {% csrf_token %}
         <div class="col-md-6">
             <label for="frame" class="form-label">First name</label>
-            <input type="text" class="form-control" id="frame" placeholder="First name" name="first_name">
+{#            <input type="text" class="form-control" id="frame" placeholder="First name" name="first_name">#}
+            {{form.first_name}}
         </div>
         <div class="col-md-6">
             <label for="lname" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="lname" placeholder="Last name" name="last_name">
+{#            <input type="text" class="form-control" id="lname" placeholder="Last name" name="last_name">#}
+            {{ form.last_name }}
         </div>
         <div class="col-md-6">
             <label for="emailid" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailib" placeholder="exemple@gmail.com" name="e_mail">
+{#            <input type="email" class="form-control" id="emailib" placeholder="exemple@gmail.com" name="e_mail">#}
+            {{ form.e_mail }}
         </div>
         <div class="col-md-6">
             <label for="phone" class="form-label">Phone Number</label>
-            <input type="number" class="form-control" id="phone" placeholder="Phone Number" name="phone_number">
+{#            <input type="number" class="form-control" id="phone" placeholder="Phone Number" name="phone_number">#}
+            {{ form.phone_number }}
         </div>
         <div class="col-12">
             <textarea class="form-control" name="contact_message" id="" cols="30" rows="5"></textarea>
+            {{ form.contact_message }}
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+
+{#    {{ form }}#}
+{#    <button type="submit" class="btn btn-primary">Submit</button>#}
 
     </form>
 {% endblock content %}
