@@ -5,12 +5,12 @@
     <form class="row g-3" method="post">
         {% csrf_token %}
         <div class="col-md-6">
-            <label for="frame" class="form-label">First name</label>
+            <label for="frame" class="form-label">Имя</label>
 {#            <input type="text" class="form-control" id="frame" placeholder="First name" name="first_name">#}
             {{form.first_name}}
         </div>
         <div class="col-md-6">
-            <label for="lname" class="form-label">Last name</label>
+            <label for="lname" class="form-label">Фамилия</label>
 {#            <input type="text" class="form-control" id="lname" placeholder="Last name" name="last_name">#}
             {{ form.last_name }}
         </div>
@@ -20,7 +20,7 @@
             {{ form.e_mail }}
         </div>
         <div class="col-md-6">
-            <label for="phone" class="form-label">Phone Number</label>
+            <label for="phone" class="form-label">Номер телефона</label>
 {#            <input type="number" class="form-control" id="phone" placeholder="Phone Number" name="phone_number">#}
             {{ form.phone_number }}
         </div>
@@ -29,6 +29,7 @@
             {{ form.contact_message }}
         </div>
         <div class="col-12">
+            <label for="phone" class="form-label">Ваше сообщение</label>
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
 
