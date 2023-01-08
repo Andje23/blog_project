@@ -2,4 +2,13 @@
 
 {% block content %}
 <h1>ЗАРЕГИСТРИРОВАТСЯ</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <button type="submit">Создать пользователя</button>
+</form>
+
 {% endblock content %}
