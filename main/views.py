@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Blog, BlogComment, Contact
 from .forms import ContactForm
+from django.contrib import messages
 
 
 def blog_home(request):
@@ -48,6 +49,7 @@ def contactUs(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Ваша форма отправлена успешно")
     else:
         form = ContactForm()
     return render(request, "main/contact_us.html", {"form": form})
