@@ -1,14 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>ЗАРЕГИСТРИРОВАТСЯ</h1>
+    <h1>ЗАРЕГИСТРИРОВАТСЯ</h1>
 
-<form method="POST">
-    {% csrf_token %}
-
-    {{ form }}
-
-    <button type="submit">Создать пользователя</button>
-</form>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label for="fname" class="form-label">Имя</label>
+                {{ form.first_name }}
+            </div>
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Фамилия</label>
+                {{ form.last_name }}
+            </div>
+             <div class="col-6">
+                <label for="username" class="form-label">Имя пользователя (НИК)</label>
+                {{ form.username }}
+            </div>
+            <div class="col-6">
+                <label for="email" class="form-label">E-mail</label>
+                {{ form.email }}
+            </div>
+            <div class="col-12">
+                <label for="password" class="form-label">Пароль</label>
+                {{ form.password1 }}
+            </div>
+            <div class="col-12">
+                <label for="confirm password" class="form-label">Подтвердите пароль</label>
+                {{ form.password2 }}
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary mt-3">Создать пользователя</button>
+    </form>
 
 {% endblock content %}
