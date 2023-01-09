@@ -32,8 +32,12 @@
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
                 <li class="nav-item">
 
+                <a class="nav-link" aria-current="page" href="#">{{ user.username }}</a>
+
+                {% else %}
                     <a
                             {% if request.path == "/authors/login/" %}
                                 class="nav-link active"
@@ -53,6 +57,7 @@
                             {% endif %}
                                 href="{% url 'register' %}">Регистрация</a>
                 </li>
+            {% endif %}
             </ul>
 
         </div>
