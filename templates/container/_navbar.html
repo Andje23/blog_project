@@ -9,19 +9,49 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Домашняя страница</a>
+
+                    <a
+                            {% if request.path == "/" %}
+                                class="nav-link active"
+                            {% else %}
+                                class="nav-link"
+                            {% endif %}
+                                aria-current="page" href="{% url 'home' %}">Домашняя страница</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact_us' %}">Связаться с нами</a>
+
+                    <a
+                            {% if request.path == "/contact_us/" %}
+                                class="nav-link active"
+                            {% else %}
+                                class="nav-link"
+                            {% endif %}
+                                href="{% url 'contact_us' %}">Связаться с нами</a>
+
                 </li>
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Логин</a>
+
+                    <a
+                            {% if request.path == "/authors/login/" %}
+                                class="nav-link active"
+                            {% else %}
+                                class="nav-link"
+                            {% endif %}
+                                aria-current="page" href="{% url 'login' %}">Логин</a>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+
+                    <a
+                            {% if request.path == "/authors/create-new-account/" %}
+                                class="nav-link active"
+                            {% else %}
+                                class="nav-link"
+                            {% endif %}
+                                href="{% url 'register' %}">Регистрация</a>
                 </li>
             </ul>
 
