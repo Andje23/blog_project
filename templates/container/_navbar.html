@@ -32,32 +32,36 @@
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-
-                <a class="nav-link" aria-current="page" href="#">{{ user.username }}</a>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">{{ user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выход</a>
+                    </li>
 
                 {% else %}
-                    <a
-                            {% if request.path == "/authors/login/" %}
-                                class="nav-link active"
-                            {% else %}
-                                class="nav-link"
-                            {% endif %}
-                                aria-current="page" href="{% url 'login' %}">Логин</a>
+                    <li class="nav-item">
+                        <a
+                                {% if request.path == "/authors/login/" %}
+                                    class="nav-link active"
+                                {% else %}
+                                    class="nav-link"
+                                {% endif %}
+                                    aria-current="page" href="{% url 'login' %}">Логин</a>
 
-                </li>
-                <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
 
-                    <a
-                            {% if request.path == "/authors/create-new-account/" %}
-                                class="nav-link active"
-                            {% else %}
-                                class="nav-link"
-                            {% endif %}
-                                href="{% url 'register' %}">Регистрация</a>
-                </li>
-            {% endif %}
+                        <a
+                                {% if request.path == "/authors/create-new-account/" %}
+                                    class="nav-link active"
+                                {% else %}
+                                    class="nav-link"
+                                {% endif %}
+                                    href="{% url 'register' %}">Регистрация</a>
+                    </li>
+                {% endif %}
             </ul>
 
         </div>

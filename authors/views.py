@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import SingnupForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 def singUp(request):
@@ -26,3 +26,9 @@ def singUp(request):
 
 def logIn(request):
     return render(request, "authors/login.html")
+
+
+def logOut(request):
+    logout(request)
+    messages.success(request, "Ты успешно вышел из системы.")
+    return redirect('home')
