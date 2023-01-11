@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from .forms import SingnupForm
 from django.contrib.auth import authenticate, login, logout
@@ -25,7 +25,24 @@ def singUp(request):
 
 
 def logIn(request):
-    return render(request, "authors/login.html")
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Вы успешно вошли в систему {username}.")
+                return redirect('home')
+            else:
+                messages.error(request, 'ОШЫБКА')
+        else:
+            messages.error(request, "Имя пользователя или пароль неверны.")
+    form = AuthenticationForm()
+    return render(request, "authors/login.html", {"login_form": form})
 
 
 def logOut(request):
