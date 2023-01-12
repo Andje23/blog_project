@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from .forms import SingnupForm
+from .forms import SingnupForm, LoginUserForm
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -26,7 +26,7 @@ def singUp(request):
 
 def logIn(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = LoginUserForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -41,7 +41,7 @@ def logIn(request):
                 messages.error(request, 'ОШЫБКА')
         else:
             messages.error(request, "Имя пользователя или пароль неверны.")
-    form = AuthenticationForm()
+    form = LoginUserForm()
     return render(request, "authors/login.html", {"login_form": form})
 
 

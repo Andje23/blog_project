@@ -1,6 +1,23 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+
+
+class LoginUserForm(AuthenticationForm):
+    def __int__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Введите имя пользователя',
+        })
+
+        self.fields['password'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Введите пароль'
+        })
+    class Meta:
+        fields = ['username', 'password']
 
 
 class SingnupForm(UserCreationForm):
@@ -31,6 +48,7 @@ class SingnupForm(UserCreationForm):
             'class': 'form-control',
             'placeholder': 'Повторите ваш пароль'
         })
+
     username = forms.CharField(max_length=150)
     first_name = forms.CharField(max_length=150)
     last_name = forms.CharField(max_length=150)
@@ -41,4 +59,3 @@ class SingnupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
-
