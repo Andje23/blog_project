@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+    <div class="card border-success md-3">
+        <div class="card-header bg-transparent border-success fs-4">{{ user.username }}</div>
+        <div class="card-body">
+            {% if user.username %}
+                <p class="card-text">Имя пользователя: {{ user.username }}</p>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Имя пользователя</b> отсутствует
+                </div>
+            {% endif %}
+
+            {% if user.first_name %}
+                <p class="card-text">Имя: {{ user.first_name }}</p>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Имя</b> отсутствует
+                </div>
+            {% endif %}
+
+            {% if user.last_name %}
+                <p class="card-text">Фамилия: {{ user.last_name }}</p>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Фамилия</b> отсутствует
+                </div>
+            {% endif %}
+
+            {% if user.email %}
+                <p class="card-text">Email: {{ user.email }}</p>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <b>EMAIL</b> отсутствует
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-footer bg-transparent border-success">
+            <a class="btn btn-sm btn-primary" href="#">Сменить пароль</a>
+            <a class="btn btn-sm btn-info" href="#">Отредактировать профиль</a>
+            <a class="btn btn-sm btn-danger" href="#">Удалить учетную запись</a>
+        </div>
+    </div>
+
+    <h3>Мои сообщения</h3>
+
+    {% for post_data in user_related_data %}
+        <div class="card">
+            <div class="card-body">
+                <blockquote class="blockquote md-0">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{ post_data.name }}</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p class="text-end">{{ post_data.post_data|timesince }}</p>
+                        </div>
+                    </div>
+                    <footer class="blockquote-footer">{{ post_data.description | truncatewords:20 }}</footer>
+                </blockquote>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-sm btn-primary" href="#">Читать БЛОГ</a>
+                <a class="btn btn-sm btn-info" href="#">Редактировать БЛОГ</a>
+                <a class="btn btn-sm btn-danger" href="#">Удалить БЛОГ</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

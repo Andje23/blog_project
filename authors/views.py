@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+
+from main.models import Blog
 from .forms import SingnupForm, LoginUserForm
 from django.contrib.auth import authenticate, login, logout
 
@@ -49,3 +51,11 @@ def logOut(request):
     logout(request)
     messages.success(request, "Ты успешно вышел из системы.")
     return redirect('home')
+
+
+def profile(request, user_name):
+    user_related_data = Blog.objects.filter(author__username=user_name)
+    contex = {
+        "user_related_data": user_related_data
+    }
+    return render(request, "authors/profile.html", contex)
