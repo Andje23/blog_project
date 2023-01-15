@@ -10,6 +10,16 @@
                     <small>{{ blog.post_date }}</small>
                 </div>
 
+                <div>
+                    {% if user.is_authenticated %}
+                        {% if user.id == blog.author.id %}
+                            <a class="btn btn-sm btn-info" href="#"><i class="fa-solid fa-pen-to-square"> </i>
+                                Редактировать БЛОГ</a>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa-solid fa-trash"> Удалить БЛОГ</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
                 <img src="" alt="" width="40%">
             </div>
 
@@ -21,7 +31,8 @@
                 <ul class="list-group">
                     {% for blogs in all_blogs %}
                         <li class="list-group-item">
-                            <a href="{% url 'blog_detail' blogs.slug %}" class="text-decoration-none">{{ blogs.name }}</a>
+                            <a href="{% url 'blog_detail' blogs.slug %}"
+                               class="text-decoration-none">{{ blogs.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
