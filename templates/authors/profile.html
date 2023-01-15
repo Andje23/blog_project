@@ -38,7 +38,7 @@
             {% endif %}
         </div>
         <div class="card-footer bg-transparent border-success">
-            <a class="btn btn-sm btn-primary" href="#"><i class="fa-solid fa-lock"></i> Сменить пароль</a>
+            <a class="btn btn-sm btn-primary" href="{% url 'change-password' %}"><i class="fa-solid fa-lock"></i> Сменить пароль</a>
             <a class="btn btn-sm btn-info" href="#"><i class="fa-solid fa-user-pen"></i> Отредактировать профиль</a>
             <a class="btn btn-sm btn-danger" href="#"><i class="fa-solid fa-user-slash"></i> Удалить учетную запись</a>
         </div>
@@ -47,7 +47,7 @@
     <h3>Мои сообщения</h3>
 
     {% for post_data in user_related_data %}
-        <div class="card">
+        <div class="card mt-1">
             <div class="card-body">
                 <blockquote class="blockquote md-0">
                     <div class="row">

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 from main.models import Blog
-from .forms import SingnupForm, LoginUserForm
+from .forms import SingnupForm, LoginUserForm, PasswordChangingForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView
 
 
 def singUp(request):
@@ -59,3 +61,12 @@ def profile(request, user_name):
         "user_related_data": user_related_data
     }
     return render(request, "authors/profile.html", contex)
+
+
+class PasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('password_success')
+
+
+def password_success(request):
+    return render(request, "authors/password_change_success.html")
