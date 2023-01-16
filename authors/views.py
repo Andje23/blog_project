@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from main.models import Blog
-from .forms import SingnupForm, LoginUserForm, PasswordChangingForm
+from .forms import SingnupForm, LoginUserForm, PasswordChangingForm, EditUserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
+from django.views import generic
 
 
 def singUp(request):
@@ -70,3 +71,13 @@ class PasswordChangeView(PasswordChangeView):
 
 def password_success(request):
     return render(request, "authors/password_change_success.html")
+
+
+class UpdateUserView(generic.UpdateView):
+    form_class = EditUserProfileForm
+    template_name = "authors/edit_user_profile.html"
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user
+
