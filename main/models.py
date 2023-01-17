@@ -37,3 +37,6 @@ class Contact(models.Model):
     phone_number = models.IntegerField()
     contact_message = models.TextField()
     timestap = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return str(f"{self.first_name} {self.last_name}")
