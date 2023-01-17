@@ -10,23 +10,29 @@ from django.contrib.auth.views import PasswordChangeView
 from django.views import generic
 
 
-def singUp(request):
-    if request.method == "POST":
-        form = SingnupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Ваш акаунт создан успешно.")
-            new_user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1']
-            )
-            login(request, new_user)
-            return redirect('home')
-        else:
-            messages.error(request, "Error")
-    else:
-        form = SingnupForm()
-    return render(request, "authors/register.html", {'form': form})
+# def singUp(request):
+#     if request.method == "POST":
+#         form = SingnupForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Ваш акаунт создан успешно.")
+#             new_user = authenticate(
+#                 username=form.cleaned_data['username'],
+#                 password=form.cleaned_data['password1']
+#             )
+#             login(request, new_user)
+#             return redirect('home')
+#         else:
+#             messages.error(request, "Error")
+#     else:
+#         form = SingnupForm()
+#     return render(request, "authors/register.html", {'form': form})
+
+
+class singUp(generic.CreateView):
+    form_class = SingnupForm
+    template_name = "authors/register.html"
+    success_url = reverse_lazy('login')
 
 
 def logIn(request):
