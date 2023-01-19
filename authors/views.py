@@ -35,12 +35,40 @@ class singUp(generic.CreateView):
     success_url = reverse_lazy('login')
 
 
-def logIn(request):
-    if request.method == "POST":
-        form = LoginUserForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+# def logIn(request):
+#     if request.method == "POST":
+#         form = LoginUserForm(request, data=request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password')
+#
+#             user = authenticate(username=username, password=password)
+#
+#             if user is not None:
+#                 login(request, user)
+#                 messages.success(request, f"Вы успешно вошли в систему {username}.")
+#                 return redirect('home')
+#             else:
+#                 messages.error(request, 'ОШЫБКА')
+#         else:
+#             messages.error(request, "Имя пользователя или пароль неверны.")
+#     form = LoginUserForm()
+#     return render(request, "authors/login.html", {"login_form": form})
+
+class logIn(generic.View):
+    form_class = LoginUserForm
+    template_name = "authors/login.html"
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        if request.method == "POST":
+            form = LoginUserForm(request, data=request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
 
             user = authenticate(username=username, password=password)
 
@@ -52,8 +80,9 @@ def logIn(request):
                 messages.error(request, 'ОШЫБКА')
         else:
             messages.error(request, "Имя пользователя или пароль неверны.")
-    form = LoginUserForm()
-    return render(request, "authors/login.html", {"login_form": form})
+
+        form = LoginUserForm()
+        return render(request, "authors/login.html", {"form": form})
 
 
 def logOut(request):
@@ -86,4 +115,3 @@ class UpdateUserView(generic.UpdateView):
 
     def get_object(self):
         return self.request.user
-
