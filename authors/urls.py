@@ -11,4 +11,5 @@ urlpatterns = [
          name="change-password"),
     path('password_success/', views.password_success, name="password_success"),
     path('edit_profile/', views.UpdateUserView.as_view(), name="edit_user"),
+    path('delete_user/<int:pk>/', views.DeleteUser.as_view(), name="delete_user"),
 ]

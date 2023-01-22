@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
 
 
 # def singUp(request):
@@ -144,3 +145,10 @@ class UpdateUserView(SuccessMessageMixin, generic.UpdateView):
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
         redirect('home')
+
+
+class DeleteUser(SuccessMessageMixin, generic.DeleteView):
+    model = User
+    template_name = "authors/delete_user_confirm.html"
+    success_message = "Пользователь был удален"
+    success_url = reverse_lazy('home')

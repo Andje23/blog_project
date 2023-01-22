@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Удалить страницу подтверждения пользователя</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-danger"> <i class="fa-solid fa-user-xmark"></i> Удалить учетную запись</button>
+    </form>
+{% endblock %}
