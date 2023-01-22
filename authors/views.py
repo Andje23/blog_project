@@ -11,6 +11,7 @@ from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 # def singUp(request):
@@ -108,24 +109,25 @@ class logOut(LoginRequiredMixin, generic.View):
         return redirect('home')
 
 
-# def profile(request, user_name):
-#     user_related_data = Blog.objects.filter(author__username=user_name)
-#     contex = {
-#         "user_related_data": user_related_data
-#     }
-#     return render(request, "authors/profile.html", contex)
+@login_required(login_url="login")
+def profile(request, user_name):
+    user_related_data = Blog.objects.filter(author__username=user_name)
+    contex = {
+        "user_related_data": user_related_data
+    }
+    return render(request, "authors/profile.html", contex)
 
-class profile(LoginRequiredMixin, generic.View):
-    model = Blog
-    login_url = 'login'
-    template_name = "authors/profile.html"
-
-    def get(self, request, user_name):
-        user_related_data = Blog.objects.filter(author__username=user_name)
-        context = {
-            "user_related_data": user_related_data
-        }
-        return render(request, self.template_name, context)
+# class profile(LoginRequiredMixin, generic.View):
+#     model = Blog
+#     login_url = 'login'
+#     template_name = "authors/profile.html"
+#
+#     def get(self, request, user_name):
+#         user_related_data = Blog.objects.filter(author__username=user_name)
+#         context = {
+#             "user_related_data": user_related_data
+#         }
+#         return render(request, self.template_name, context)
 
 
 class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
