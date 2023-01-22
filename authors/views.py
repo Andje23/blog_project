@@ -85,10 +85,16 @@ class logIn(generic.View):
         return render(request, "authors/login.html", {"form": form})
 
 
-def logOut(request):
-    logout(request)
-    messages.success(request, "Ты успешно вышел из системы.")
-    return redirect('home')
+# def logOut(request):
+#     logout(request)
+#     messages.success(request, "Ты успешно вышел из системы.")
+#     return redirect('home')
+
+
+class logOut(generic.View):
+    def get(self, request):
+        logout(request)
+        return redirect('home')
 
 
 def profile(request, user_name):
