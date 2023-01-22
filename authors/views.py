@@ -8,6 +8,7 @@ from .forms import SingnupForm, LoginUserForm, PasswordChangingForm, EditUserPro
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
 from django.views import generic
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # def singUp(request):
@@ -29,10 +30,15 @@ from django.views import generic
 #     return render(request, "authors/register.html", {'form': form})
 
 
-class singUp(generic.CreateView):
+class singUp(SuccessMessageMixin, generic.CreateView):
     form_class = SingnupForm
     template_name = "authors/register.html"
     success_url = reverse_lazy('login')
+    success_message = "Пользователь был создан, пожалуйста, войдите под своим именем пользователя и паролем"
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
+        redirect('home')
 
 
 # def logIn(request):
@@ -94,6 +100,7 @@ class logIn(generic.View):
 class logOut(generic.View):
     def get(self, request):
         logout(request)
+        messages.success(request, "Пользователь вышел из системы")
         return redirect('home')
 
 
@@ -125,10 +132,15 @@ def password_success(request):
     return render(request, "authors/password_change_success.html")
 
 
-class UpdateUserView(generic.UpdateView):
+class UpdateUserView(SuccessMessageMixin, generic.UpdateView):
     form_class = EditUserProfileForm
     template_name = "authors/edit_user_profile.html"
     success_url = reverse_lazy('home')
+    success_message = "Пользователь обновлен"
 
     def get_object(self):
         return self.request.user
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
+        redirect('home')
