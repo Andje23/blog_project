@@ -10,6 +10,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # def singUp(request):
@@ -98,7 +99,9 @@ class logIn(generic.View):
 #     return redirect('home')
 
 
-class logOut(generic.View):
+class logOut(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+
     def get(self, request):
         logout(request)
         messages.success(request, "Пользователь вышел из системы")
@@ -112,8 +115,9 @@ class logOut(generic.View):
 #     }
 #     return render(request, "authors/profile.html", contex)
 
-class profile(generic.View):
+class profile(LoginRequiredMixin, generic.View):
     model = Blog
+    login_url = 'login'
     template_name = "authors/profile.html"
 
     def get(self, request, user_name):
@@ -124,8 +128,9 @@ class profile(generic.View):
         return render(request, self.template_name, context)
 
 
-class PasswordChangeView(PasswordChangeView):
+class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangingForm
+    login_url = 'login'
     success_url = reverse_lazy('password_success')
 
 
@@ -133,8 +138,9 @@ def password_success(request):
     return render(request, "authors/password_change_success.html")
 
 
-class UpdateUserView(SuccessMessageMixin, generic.UpdateView):
+class UpdateUserView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     form_class = EditUserProfileForm
+    login_url = 'login'
     template_name = "authors/edit_user_profile.html"
     success_url = reverse_lazy('home')
     success_message = "Пользователь обновлен"
@@ -147,8 +153,9 @@ class UpdateUserView(SuccessMessageMixin, generic.UpdateView):
         redirect('home')
 
 
-class DeleteUser(SuccessMessageMixin, generic.DeleteView):
+class DeleteUser(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView):
     model = User
+    login_url = 'login'
     template_name = "authors/delete_user_confirm.html"
     success_message = "Пользователь был удален"
     success_url = reverse_lazy('home')
