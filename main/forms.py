@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact
+from .models import Contact, Blog
 
 
 class ContactForm(forms.ModelForm):
@@ -14,11 +14,16 @@ class ContactForm(forms.ModelForm):
                                                  'placeholder': 'Введите свое имя'}),
             "last_name": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите вашу фамилию'}),
             "e_mail": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Введите вашу почту'}),
-            "phone_number": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Введите ваш номер телефона'}),
+            "phone_number": forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Введите ваш номер телефона'}),
             "contact_message": forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите ваше сообщение'}),
         }
 
 
-
-
-
+class CreateBlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        exclude = ('post_date', 'slug')
+        widgets = {
+            'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'})
+        }

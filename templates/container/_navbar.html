@@ -16,8 +16,25 @@
                             {% else %}
                                 class="nav-link"
                             {% endif %}
-                                aria-current="page" href="{% url 'home' %}"><i class="fa-solid fa-house"></i>Домашняя страница</a>
+                                aria-current="page" href="{% url 'home' %}"><i class="fa-solid fa-house"></i>Домашняя
+                        страница</a>
                 </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a
+                                {% if request.path == "/" %}
+                                    class="nav-link active"
+                                {% else %}
+                                    class="nav-link"
+                                {% endif %}
+                                    aria-current="page" href="{% url 'create-blog' %}"><i
+                                class="fa-solid fa-pen-clip"></i>Создать
+                            блог</a>
+                    </li>
+                {% endif %}
+
+
                 <li class="nav-item">
 
                     <a
@@ -26,7 +43,8 @@
                             {% else %}
                                 class="nav-link"
                             {% endif %}
-                                href="{% url 'contact_us' %}"><i class="fa-solid fa-address-book"></i>Связаться с нами</a>
+                                href="{% url 'contact_us' %}"><i class="fa-solid fa-address-book"></i>Связаться с
+                        нами</a>
 
                 </li>
             </ul>
@@ -34,10 +52,12 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'profile' user.username %}"><i class="fa-solid fa-user"></i>{{ user.username }}</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'profile' user.username %}"><i
+                                class="fa-solid fa-user"></i>{{ user.username }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'logout' %}"><i class="fa-solid fa-user"></i>Выход</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'logout' %}"><i
+                                class="fa-solid fa-user"></i>Выход</a>
                     </li>
 
                 {% else %}
@@ -48,7 +68,8 @@
                                 {% else %}
                                     class="nav-link"
                                 {% endif %}
-                                    aria-current="page" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket"></i>Логин</a>
+                                    aria-current="page" href="{% url 'login' %}"><i
+                                class="fa-solid fa-right-to-bracket"></i>Логин</a>
 
                     </li>
                     <li class="nav-item">
@@ -59,7 +80,8 @@
                                 {% else %}
                                     class="nav-link"
                                 {% endif %}
-                                    href="{% url 'register' %}"><i class="fa-solid fa-user-plus"></i><i class="fa-solid fa-user-plus fa-lg"></i>Регистрация</a>
+                                    href="{% url 'register' %}"><i class="fa-solid fa-user-plus"></i><i
+                                class="fa-solid fa-user-plus fa-lg"></i>Регистрация</a>
                     </li>
                 {% endif %}
             </ul>

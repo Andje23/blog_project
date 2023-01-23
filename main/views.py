@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Blog, BlogComment, Contact
-from .forms import ContactForm
+from .forms import ContactForm, CreateBlogForm
 from django.contrib import messages
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # def blog_home(request):
@@ -29,6 +30,7 @@ class blog_home(generic.ListView):
 class blog_detail(generic.DetailView):
     model = Blog
     template_name = "main/blog_detail.html"
+
 
 # def contactUs(request):
 #     # if request.method == "POST":
@@ -69,3 +71,11 @@ class contactUs(SuccessMessageMixin, generic.CreateView):
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR, "Пожалуйста, внимательно заполните форму.")
         redirect('home')
+
+
+class CreateBlog(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
+    form_class = CreateBlogForm
+    template_name = "main/create_blog.html"
+    login_url = 'login'
+    success_url = "/"
+    success_message = "Ваш блог был создан"
