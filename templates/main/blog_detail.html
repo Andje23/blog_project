@@ -20,11 +20,10 @@
                     {% endif %}
                 </div>
 
-                <img src="" alt="" width="40%">
             </div>
 
             <div>
-                <p>{{ blog.description }}</p>
+                <p>{{ blog.description | safe }}</p>
             </div>
 
             <div class="col-md-4">
