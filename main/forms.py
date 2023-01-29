@@ -27,5 +27,13 @@ class CreateBlogForm(forms.ModelForm):
         model = Blog
         exclude = ('post_date', 'slug')
         widgets = {
-            'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'})
+            'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'}),
+            'mini_description': forms.Textarea(attrs={'class': 'form-control'})
         }
+
+
+
+
+
+
+

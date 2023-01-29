@@ -10,6 +10,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     # description = models.TextField(help_text="Write your blog")
     description = RichTextField()
+    mini_description = models.TextField()
     post_date = models.DateField(default=date.today)
     slug = models.CharField(max_length=1000, null=True, blank=True)
 
