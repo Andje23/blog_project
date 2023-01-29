@@ -7,8 +7,6 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = "__all__"
-        # fields = ("first_name", "last_name", "e_mail")
-        # exclude = ("first_name", )
 
         widgets = {
             "first_name": forms.TextInput(attrs={'class': 'form-control',
@@ -23,6 +21,7 @@ class ContactForm(forms.ModelForm):
 
 class CreateBlogForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Blog
         exclude = ('post_date', 'slug')
@@ -32,8 +31,13 @@ class CreateBlogForm(forms.ModelForm):
         }
 
 
+class UpdateBlogForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorWidget())
 
-
-
-
-
+    class Meta:
+        model = Blog
+        exclude = ('post_date', 'slug')
+        widgets = {
+            'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'}),
+            'mini_description': forms.Textarea(attrs={'class': 'form-control'})
+        }
