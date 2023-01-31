@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if user.id == blog.authors.id %}
+            <h2>Удалить: {{ blog.name }}</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                <strong>Вы уверены, что хотите удалить этот блог?</strong>
+                <br>
+                <button type="submit" class="btn btn-danger"></button>
+            </form>
+        {% else %}
+            <strong class="text-danger">Вам сюда нельзя.</strong>
+        {% endif %}
+    {% else %}
+        <strong class="text-danger">Вы не вошли в систему, пожалуйста, создайте учётную запись или войдите на
+            веб-сайт.</strong>
+    {% endif %}
+{% endblock %}

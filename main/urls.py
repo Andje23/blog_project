@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('update_blog/<int:pk>', views.UpdateBlogView.as_view(), name="UpdateBlogView"),
 
+    path('delete_blog/<int:pk>', views.DeleteBlogView.as_view(), name="DeleteBlogView"),
+
 ]
