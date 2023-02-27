@@ -12,9 +12,14 @@ class blog_home(generic.ListView):
     template_name = "main/blog_home.html"
 
 
-class blog_detail(generic.DetailView):
-    model = Blog
-    template_name = "main/blog_detail.html"
+def blog_detail(request, slug):
+    blog = Blog.objects.get(slug=slug)
+    all_blogs = Blog.objects.all().order_by('-post_date')[:10]
+    context = {
+        'blog': blog,
+        'all_blogs': all_blogs
+    }
+    return render(request, "main/blog_detail.html", context)
 
 
 class contactUs(SuccessMessageMixin, generic.CreateView):
