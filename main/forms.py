@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, Blog
+from .models import Contact, Blog, BlogComment
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -40,4 +40,15 @@ class UpdateBlogForm(forms.ModelForm):
         widgets = {
             'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'}),
             'mini_description': forms.Textarea(attrs={'class': 'form-control'})
+        }
+
+
+class CommentBlogForm(forms.ModelForm):
+    class Meta:
+        model = BlogComment
+
+        widgets = {
+            'author': forms.TextInput(attrs={'value': '', 'id': 'author', 'type': 'hidden'}),
+            'blog': forms.TextInput(attrs={'value': '', 'id': 'blog', 'type': 'hidden'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'})
         }
