@@ -14,25 +14,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
-# def singUp(request):
-#     if request.method == "POST":
-#         form = SingnupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Ваш акаунт создан успешно.")
-#             new_user = authenticate(
-#                 username=form.cleaned_data['username'],
-#                 password=form.cleaned_data['password1']
-#             )
-#             login(request, new_user)
-#             return redirect('home')
-#         else:
-#             messages.error(request, "Error")
-#     else:
-#         form = SingnupForm()
-#     return render(request, "authors/register.html", {'form': form})
-
-
 class singUp(SuccessMessageMixin, generic.CreateView):
     form_class = SingnupForm
     template_name = "authors/register.html"
@@ -43,26 +24,6 @@ class singUp(SuccessMessageMixin, generic.CreateView):
         messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
         redirect('home')
 
-
-# def logIn(request):
-#     if request.method == "POST":
-#         form = LoginUserForm(request, data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#
-#             user = authenticate(username=username, password=password)
-#
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, f"Вы успешно вошли в систему {username}.")
-#                 return redirect('home')
-#             else:
-#                 messages.error(request, 'ОШЫБКА')
-#         else:
-#             messages.error(request, "Имя пользователя или пароль неверны.")
-#     form = LoginUserForm()
-#     return render(request, "authors/login.html", {"login_form": form})
 
 class logIn(generic.View):
     form_class = LoginUserForm
@@ -94,12 +55,6 @@ class logIn(generic.View):
         return render(request, "authors/login.html", {"form": form})
 
 
-# def logOut(request):
-#     logout(request)
-#     messages.success(request, "Ты успешно вышел из системы.")
-#     return redirect('home')
-
-
 class logOut(LoginRequiredMixin, generic.View):
     login_url = 'login'
 
@@ -108,14 +63,6 @@ class logOut(LoginRequiredMixin, generic.View):
         messages.success(request, "Пользователь вышел из системы")
         return redirect('home')
 
-
-# @login_required(login_url="login")
-# def profile(request, user_name):
-#     user_related_data = Blog.objects.filter(author__username=user_name)
-#     contex = {
-#         "user_related_data": user_related_data
-#     }
-#     return render(request, "authors/profile.html", contex)
 
 class profile(LoginRequiredMixin, generic.View):
     model = Blog
