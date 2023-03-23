@@ -14,6 +14,7 @@ class blog_home(generic.ListView):
 
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug=slug)
+    all_comments = BlogComment.objects.filter(blog=blog.id)
     all_blogs = Blog.objects.all().order_by('-post_date')[:10]
 
     form = CommentBlogForm()
@@ -29,7 +30,8 @@ def blog_detail(request, slug):
     context = {
         'blog': blog,
         'all_blogs': all_blogs,
-        'form': form
+        'form': form,
+        'all_comments': all_comments,
     }
     return render(request, "main/blog_detail.html", context)
 

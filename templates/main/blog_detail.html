@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -28,14 +30,45 @@
                 <p>{{ blog.description | safe }}</p>
             </div>
 
-            <div class="col">
-                <h3>Напишите свой комментарий ...</h3>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
+            <div>
+                <h3>Комментарии ({{ all_comments.count }}</h3>
 
-                    <button type="submit" class="btn btn-outline-primary">Отправить</button>
-                </form>
+                {% for comment in all_commets %}
+                    <div class="card md-2">
+                        <div class="card-header">
+                            {{ comment.author }} <br>
+                            {{ comment.comment_date| timesince }} тому назад
+                        </div>
+
+                    <div class="card-body">
+                        <blockquote class="blockquote mt-2">
+                            <p>{{ comment.description }}</p>
+                        </blockquote>
+                    </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="col">
+                {% if user.is_authenticated %}
+                    {% if blog.author.id == user.id %}
+                        <h3 class="text-center text-warning">Вам не разрешается оставлять комментарии в своем
+                            собственном блоге</h3>
+                    {% else %}
+                        <h3>Напишите свой комментарий ...</h3>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-outline-primary">Отправить</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <h2 class="text-center text-danger">Пожалуйста, войдите в систему, чтобы прокомментировать этот пост
+                        <a href="{% url 'login' %}">Авторизоваться</a>
+                    </h2>
+                {% endif %}
+
 
             </div>
 
