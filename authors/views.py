@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from main.models import Blog
-from .forms import SingnupForm, LoginUserForm, PasswordChangingForm, EditUserProfileForm
+from .forms import SingnupForm, LoginUserForm, PasswordChangingForm, EditUserProfileForm, UserPublicDetailsForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
 from django.views import generic
@@ -106,3 +106,18 @@ class DeleteUser(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView):
     template_name = "authors/delete_user_confirm.html"
     success_message = "Пользователь был удален"
     success_url = reverse_lazy('home')
+
+
+class UpdatePublicDetails(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
+    form_class = UserPublicDetailsForm
+    login_url = "login"
+    template_name = "authors/edit_public_details.html"
+    success_url = reverse_lazy('home')
+    success_message = "Пользователь обновлен"
+
+    def get_object(self):
+        return self.request.user.userprofile
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
+        redirect('home')
