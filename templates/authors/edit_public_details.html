@@ -1,13 +1,83 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
 
 {% block content %}
     <h2>ОБНОВИТЬ ПОЛЬЗОВАТЕЛЯ</h2>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'container/_sideNavBar.html' %}
+        </div>
+        <div class="col-md-9">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
 
-        <br>
-        <button class="btn btn-lg btn-success" type="submit"> Обновить пользователя</button>
-    </form>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Общая информация</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="col">
+                            {{ form.user}}
+                        </div>
+                         <div class="col">
+                            {{ form.bio | as_crispy_field }}
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ form.location | as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.dob | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h2>Образование / Работа</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form.education | as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.work | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h2>Социальные связи</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form.website | as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ form.github | as_crispy_field }}
+                            </div>
+                            <div>
+                                {{ form.twitter | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+                <button class="btn btn-lg btn-success" type="submit"> Обновить пользователя</button>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock %}

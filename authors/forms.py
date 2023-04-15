@@ -5,6 +5,25 @@ from .models import UserProfile
 
 
 class UserPublicDetailsForm(forms.ModelForm):
+    def __int__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['user'].widget.attrs.update({
+            'hidden': "hidden"
+        })
+
+        self.fields['bio'].widget.attrs.update({
+            "rows": 3
+        })
+
+        self.fields['education'].widget.attrs.update({
+            "rows": 3
+        })
+
+        self.fields['work'].widget.attrs.update({
+            "rows": 3
+        })
+
     class Meta:
         model = UserProfile
         fields = "__all__"

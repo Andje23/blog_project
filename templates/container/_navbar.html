@@ -20,20 +20,6 @@
                         страница</a>
                 </li>
 
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a
-                                {% if request.path == "/create_new_blog/" %}
-                                    class="nav-link active"
-                                {% else %}
-                                    class="nav-link"
-                                {% endif %}
-                                    aria-current="page" href="{% url 'create-blog' %}"><i
-                                class="fa-solid fa-pen-clip"></i>Создать
-                            блог</a>
-                    </li>
-                {% endif %}
-
 
                 <li class="nav-item">
 
@@ -63,9 +49,8 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'user_public_details' user.id %}">Обновить
-                            общедоступную информацию</a></li>
-                        <li><a class="dropdown-item" href="#">Action three</a></li>
+                        <li><a class="dropdown-item" href="{% url 'user_public_details' %}">Настройки</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create-blog' %}">Создать блог</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
