@@ -2,44 +2,65 @@
 {% load humanize %}
 
 {% block content %}
-    <div class="card border-success md-3">
-        <div class="card-header bg-transparent border-success fs-4">{{ user.username }}</div>
-        <div class="card-body">
-            {% if user.username %}
-                <p class="card-text">Имя пользователя: {{ user.username }}</p>
+    <h2 class="fw-bolder">Привет, <span class="text-primary">{{ user.username }}!!</span></h2>
+
+    <div class="card">
+        <div class="card-body text-center">
+
+            {% if user_profile_data.profile_image %}
+                <img class="rounder" src="{{ user_profile_data.profile_image.url }}"
+                     alt="{{ user.username }} изображение профиля" width="10%" height="10%">
             {% else %}
-                <div class="alert alert-warning" role="alert">
-                    <b>Имя пользователя</b> отсутствует
-                </div>
+                <img class="rounder" src="https://www.w3schools.com/howto/img_avatar.png"
+                     alt="{{ user.username }} изображение профиля" width="10%" height="10%">
             {% endif %}
 
-            {% if user.first_name %}
-                <p class="card-text">Имя: {{ user.first_name }}</p>
+            <h3 class="fs-1 fw-bolder mt-3">{{ user.first_name }} {{ user.last_name }} (@{{ user.username }})</h3>
+
+            {% if user_profile_data.bio %}
+                <p>{{ user_profile_data.bio }}</p>
             {% else %}
-                <div class="alert alert-warning" role="alert">
-                    <b>Имя</b> отсутствует
-                </div>
+                <p><span class="text-danger">404</span> биография не найдена</p>
             {% endif %}
 
-            {% if user.last_name %}
-                <p class="card-text">Фамилия: {{ user.last_name }}</p>
-            {% else %}
-                <div class="alert alert-warning" role="alert">
-                    <b>Фамилия</b> отсутствует
-                </div>
-            {% endif %}
+            <div class="fs-5">
+                {% if user_profile_data.locatio %}
+                    <span class="me-3"><i class="fa-solid fa-location-pin text-primary"></i>
+                        {{ user_profile_data.locatio }}</span>
+                {% endif %}
 
-            {% if user.email %}
-                <p class="card-text">Email: {{ user.email }}</p>
-            {% else %}
-                <div class="alert alert-warning" role="alert">
-                    <b>EMAIL</b> отсутствует
-                </div>
-            {% endif %}
+                {% if user_profile_data.dob %}
+                    <span class="me-3"><i
+                            class="fa-solid fa-cake-candles text-primary"></i>{{ user_profile_data.dob }}</span>
+                {% endif %}
+
+                {% if user.email %}
+                    <span class="me-5"><i class="fa-solid fa-envelope text-primary"></i>{{ user.email }}</span>
+                {% endif %}
+
+                {% if user_profile_data.website %}
+                    <a class="me-2" href="{{ user_profile_data.website }}"><i
+                            class="fa-sharp fa-light fa-earth-europe"></i>
+                    </a>
+                {% endif %}
+
+                {% if user_profile_data.github %}
+                    <a class="me-2" href="{{ user_profile_data.github }}"><i class="fa-brands fa-github"></i></a>
+                {% endif %}
+
+            </div>
         </div>
-        <div class="card-footer bg-transparent border-success">
-
-
+        <div class="card-footer text-center">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Образование</h5>
+                    <p>{{ user_profile_data.education }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Работа</h5>
+                    <p>{{ user_profile_data.work }}</p>
+                </div>
+            </div>
         </div>
     </div>
 
