@@ -69,23 +69,27 @@
 
     <div class="row mt-2">
         <div class="col-md-3">
-            <div class="card mt-2">
-                <div class="card-header">
-                    <h4>В настоящее время изучаю</h4>
+            {% if user_profile_data.currently_learning %}
+                <div class="card">
+                    <div class="card-header">
+                        <h4>В настоящее время изучаю</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ user_profile_data.currently_learning }}</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>PYTHON И DJANDO</p>
-                </div>
-            </div>
+            {% endif %}
 
-            <div class="card mt-2">
-                <div class="card-header">
-                    <h4>Навыки и языки</h4>
+            {% if user_profile_data.skills_language %}
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h4>Навыки и языки</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ user_profile_data.skills_language }}</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>PYTHON И DJANDO</p>
-                </div>
-            </div>
+            {% endif %}
 
             <div class="card mt-2">
                 <div class="card-header">

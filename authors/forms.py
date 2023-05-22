@@ -13,15 +13,28 @@ class UserPublicDetailsForm(forms.ModelForm):
         })
 
         self.fields['bio'].widget.attrs.update({
-            "rows": 3
+            "rows": '3'
+        })
+
+        self.fields['current_hacking_on'].widget.attrs.update({
+            "rows": '2'
+        })
+
+        self.fields['currently_learning'].widget.attrs.update({
+            "rows": '2'
+        })
+
+        self.fields['skills_language'].widget.attrs.update({
+            "rows": '2',
+            "placeholder": "python, django"
         })
 
         self.fields['education'].widget.attrs.update({
-            "rows": 3
+            "rows": '3'
         })
 
         self.fields['work'].widget.attrs.update({
-            "rows": 3
+            "rows": '3'
         })
 
     class Meta:
