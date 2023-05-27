@@ -7,7 +7,7 @@ from ckeditor.fields import RichTextField
 
 class Blog(models.Model):
     name = models.CharField(max_length=100)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     # description = models.TextField(help_text="Write your blog")
     description = RichTextField()
     mini_description = models.TextField()

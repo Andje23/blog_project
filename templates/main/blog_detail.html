@@ -40,11 +40,11 @@
                             {{ comment.comment_date| timesince }} тому назад
                         </div>
 
-                    <div class="card-body">
-                        <blockquote class="blockquote mt-2">
-                            <p>{{ comment.description }}</p>
-                        </blockquote>
-                    </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mt-2">
+                                <p>{{ comment.description }}</p>
+                            </blockquote>
+                        </div>
                     </div>
                 {% endfor %}
 
@@ -77,7 +77,7 @@
                     {% for blogs in all_blogs %}
                         <li class="list-group-item">
                             <a href="{% url 'blog_detail' blogs.slug %}"
-                               class="text-decoration-none">{{ blogs.name }}</a>
+                               class="text-decoration-none"><i class="fa-solid fa-right"></i> {{ blogs.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
