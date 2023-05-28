@@ -124,3 +124,9 @@ class UpdatePublicDetails(LoginRequiredMixin, SuccessMessageMixin, generic.Updat
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR, "Пожалуйста, введите данные должным образом.")
         redirect('home')
+
+
+class Dashboard(generic.View):
+
+    def get(self, request):
+        return render(request, "authors/dashboard.html")
