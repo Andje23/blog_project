@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 
-from main.models import Blog
+from main.models import Blog, BlogComment
 from .forms import SingnupForm, LoginUserForm, PasswordChangingForm, EditUserProfileForm, UserPublicDetailsForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
@@ -126,7 +126,15 @@ class UpdatePublicDetails(LoginRequiredMixin, SuccessMessageMixin, generic.Updat
         redirect('home')
 
 
-class Dashboard(generic.View):
+class Dashboard(LoginRequiredMixin, generic.View):
+    login_url = "login"
 
     def get(self, request):
-        return render(request, "authors/dashboard.html")
+        user_related_data = Blog.objects.filter(author__username=request.user.username)
+        user_comments = BlogComment.objects.filter(author__username=request.user.username)
+
+        context = {
+            'user_related_data': user_related_data,
+            'user_comments': user_comments,
+        }
+        return render(request, "authors/dashboard.html", context)
